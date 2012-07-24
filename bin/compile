@@ -105,6 +105,8 @@ function download() {
 
   mkdir -p $location
   curl $src -s -o - | tar xzf - -C $location
+  echo $location
+  echo $src
 }
 
 bootstrap_node=$(mktmpdir bootstrap_node)
