@@ -151,7 +151,7 @@ NODE_PACKAGE="http://${S3_BUCKET}.s3.amazonaws.com/nodejs-${NODE_VERSION}.tgz"
 NPM_PACKAGE="http://${S3_BUCKET}.s3.amazonaws.com/npm-${NPM_VERSION}.tgz"
 SCONS_PACKAGE="http://${S3_BUCKET}.s3.amazonaws.com/scons-${SCONS_VERSION}.tgz"
 # PHANTOMJS_PACKAGE="http://${S3_BUCKET}.s3.amazonaws.com/phantomjs-${PHANTOMJS_VERSION}.tgz"
-PHANTOMJS_PACKAGE="http://stomita-buildpack-phantomjs.s3.amazonaws.com/buildpack-phantomjs-${PHANTOMJS_VERSION}.tar.gz"
+PHANTOMJS_PACKAGE="http://journalismpp.s3.amazonaws.com/phantomjs-${PHANTOMJS_VERSION}.tgz"
 
 # vendor directories
 VENDORED_NODE="$(mktmpdir node)"
@@ -164,7 +164,7 @@ echo "-----> Fetching Node.js binaries"
 package_download "nodejs" "${NODE_VERSION}" "${VENDORED_NODE}"
 package_download "npm" "${NPM_VERSION}" "${VENDORED_NPM}"
 package_download "scons" "${SCONS_VERSION}" "${VENDORED_SCONS}"
-package_download "phantomjs" "${PHANTOMJS_VERSION}" "${VENDORED_PHANTOMJS}"
+# package_download "phantomjs" "${PHANTOMJS_VERSION}" "${VENDORED_PHANTOMJS}"
 
 
 # vendor node into the slug
