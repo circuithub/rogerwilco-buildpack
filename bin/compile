@@ -164,7 +164,7 @@ echo "-----> Fetching Node.js binaries"
 package_download "nodejs" "${NODE_VERSION}" "${VENDORED_NODE}"
 package_download "npm" "${NPM_VERSION}" "${VENDORED_NPM}"
 package_download "scons" "${SCONS_VERSION}" "${VENDORED_SCONS}"
-# package_download "phantomjs" "${PHANTOMJS_VERSION}" "${VENDORED_PHANTOMJS}"
+package_download "phantomjs" "${PHANTOMJS_VERSION}" "${VENDORED_PHANTOMJS}"
 
 
 # vendor node into the slug
