@@ -12,7 +12,7 @@ unset GIT_DIR
 
 # config
 SCONS_VERSION="1.2.0"
-S3_BUCKET="heroku-buildpack-nodejs"
+S3_BUCKET="journalismpp"
 
 # parse and derive params
 BUILD_DIR=$1
@@ -109,12 +109,16 @@ declare -A engine_requests
 
 engine_defaults["node"]="0.4.7"
 engine_defaults["npm"]="1.0.106"
+engine_defaults["phantom"]="1.4.1"
 
 engine_versions["node"]=$(manifest_versions "nodejs")
 engine_requests["node"]=$(package_engine_version "node")
 
 engine_versions["npm"]=$(manifest_versions "npm")
 engine_requests["npm"]=$(package_engine_version "npm")
+
+engine_versions["phantom"]=$(manifest_versions "phantomjs")
+engine_requests["phantom"]=$(package_engine_version "phantom")
 
 echo "-----> Resolving engine versions"
 
@@ -135,6 +139,9 @@ echo "Using Node.js version: ${NODE_VERSION}" | indent
 NPM_VERSION=$(package_resolve_version "npm")
 echo "Using npm version: ${NPM_VERSION}" | indent
 
+PHANTOMJS_VERSION=$(package_resolve_version "phantom")
+echo "Using Phantom.js version: ${PHANTOMJS_VERSION}" | indent
+
 # cache directories
 CACHE_STORE_DIR="$CACHE_DIR/node_modules/$NODE_VERSION/$NPM_VERSION"
 CACHE_TARGET_DIR="$BUILD_DIR/node_modules"
@@ -143,17 +150,22 @@ CACHE_TARGET_DIR="$BUILD_DIR/node_modules"
 NODE_PACKAGE="http://${S3_BUCKET}.s3.amazonaws.com/nodejs-${NODE_VERSION}.tgz"
 NPM_PACKAGE="http://${S3_BUCKET}.s3.amazonaws.com/npm-${NPM_VERSION}.tgz"
 SCONS_PACKAGE="http://${S3_BUCKET}.s3.amazonaws.com/scons-${SCONS_VERSION}.tgz"
+# PHANTOMJS_PACKAGE="http://${S3_BUCKET}.s3.amazonaws.com/phantomjs-${PHANTOMJS_VERSION}.tgz"
+PHANTOMJS_PACKAGE="http://stomita-buildpack-phantomjs.s3.amazonaws.com/buildpack-phantomjs-${PHANTOMJS_VERSION}.tar.gz"
 
 # vendor directories
 VENDORED_NODE="$(mktmpdir node)"
 VENDORED_NPM="$(mktmpdir npm)"
 VENDORED_SCONS="$(mktmpdir scons)"
+VENDORED_PHANTOMJS="$(mktmpdir phantom)"
 
 # download and unpack packages
 echo "-----> Fetching Node.js binaries"
 package_download "nodejs" "${NODE_VERSION}" "${VENDORED_NODE}"
 package_download "npm" "${NPM_VERSION}" "${VENDORED_NPM}"
 package_download "scons" "${SCONS_VERSION}" "${VENDORED_SCONS}"
+package_download "phantomjs" "${PHANTOMJS_VERSION}" "${VENDORED_PHANTOMJS}"
+
 
 # vendor node into the slug
 PATH="$BUILD_DIR/bin:$PATH"
@@ -174,5 +186,15 @@ run_npm "rebuild"
 echo "Dependencies installed" | indent
 
 echo "-----> Building runtime environment"
+# for nodejs
 mkdir -p $BUILD_DIR/.profile.d
 echo "export PATH=\"\$HOME/bin:\$HOME/node_modules/.bin:\$PATH\"" > $BUILD_DIR/.profile.d/nodejs.sh
+
+
+echo "-----> Building Phantom.js environment"
+# for phantomjs
+mkdir -p $BUILD_DIR/bin
+curl https://raw.github.com/gist/1983913/phantomjs.sh -s -o $BUILD_DIR/bin/phantomjs.s
+chmod 755 $BUILD_DIR/bin/phantomjs.sh
+curl https://raw.github.com/gist/1983751/phantomexec.sh -s -o $BUILD_DIR/bin/phantomexec.sh
+chmod 755 $BUILD_DIR/bin/phantomexec.sh
