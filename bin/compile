@@ -105,6 +105,7 @@ function download() {
   location="$2"
 
   mkdir -p $location
+  echo "curl ${src} -s -o - | tar xzf - -C ${location}"
   curl $src -s -o - | tar xzf - -C $location
 }
 
