@@ -172,9 +172,8 @@ echo "-----> Fetching Node.js binaries"
 package_download "nodejs" "${NODE_VERSION}" "${VENDORED_NODE}"
 package_download "npm" "${NPM_VERSION}" "${VENDORED_NPM}"
 package_download "scons" "${SCONS_VERSION}" "${VENDORED_SCONS}"
-echo "-----> Fetching Phantom.js binaries"
+echo "-----> Fetching Phantom.js binaries (${PHANTOMJS_PACKAGE}, ${VENDORED_PHANTOMJS})"
 download "${PHANTOMJS_PACKAGE}" "${VENDORED_PHANTOMJS}"
-
 
 # vendor node into the slug
 PATH="$BUILD_DIR/bin:$PATH"
