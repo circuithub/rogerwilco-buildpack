@@ -159,7 +159,7 @@ CACHE_TARGET_DIR="$BUILD_DIR/node_modules"
 NODE_PACKAGE="http://${S3_NODEJS_BUCKET}.s3.amazonaws.com/nodejs-${NODE_VERSION}.tgz"
 NPM_PACKAGE="http://${S3_NODEJS_BUCKET}.s3.amazonaws.com/npm-${NPM_VERSION}.tgz"
 SCONS_PACKAGE="http://${S3_NODEJS_BUCKET}.s3.amazonaws.com/scons-${SCONS_VERSION}.tgz"
-PHANTOMJS_PACKAGE="http://${S3_CIRCUITHUBBUILD_BUCKET}.s3.amazonaws.com/phantomjs-${PHANTOMJS_VERSION}-linux-x86_64.tgz"
+PHANTOMJS_PACKAGE="http://${S3_CIRCUITHUBBUILD_BUCKET}.s3.amazonaws.com/phantomjs-${PHANTOMJS_VERSION}.tgz"
 
 # vendor directories
 VENDORED_NODE="$(mktmpdir node)"
