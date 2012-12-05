@@ -208,4 +208,3 @@ echo "-----> Building Phantom.js environment"
 #curl https://raw.github.com/gist/1983751/phantomexec.sh -s -o $BUILD_DIR/bin/phantomexec.sh
 #chmod 755 $BUILD_DIR/bin/phantomexec.sh
 
-echo "COOL"
