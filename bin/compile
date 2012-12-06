@@ -202,7 +202,8 @@ echo "export PATH=\"\$HOME/bin:\$HOME/node_modules/.bin:\$PATH\"" > $BUILD_DIR/.
 
 echo "-----> Building Phantom.js environment"
 # for phantomjs
-#mkdir -p $BUILD_DIR/bin
+mkdir -p "$BUILD_DIR/bin"
+cp "$VENDORED_NODE/bin/phantom" "$BUILD_DIR/bin/phantom"
 #curl https://raw.github.com/gist/1983913/phantomjs.sh -s -o $BUILD_DIR/bin/phantomjs.sh
 #chmod 755 $BUILD_DIR/bin/phantomjs.sh
 #curl https://raw.github.com/gist/1983751/phantomexec.sh -s -o $BUILD_DIR/bin/phantomexec.sh
